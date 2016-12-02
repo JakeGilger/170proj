@@ -1,3 +1,5 @@
+import cPickle
+
 def combine_outputs(output1, output2):
 	with open(output1, "r") as f:
 		f1lines = f.readlines()
@@ -27,3 +29,7 @@ def score_from_file(line_number, file_lines):
 			teamSum += perf[j]
 		total += len(team) * teamSum
 	return (total, orig_line + "\n", num_teams)
+
+def load_obj(name):
+	with open('obj/' + name, 'rb') as f:
+		return cPickle.load(f)
