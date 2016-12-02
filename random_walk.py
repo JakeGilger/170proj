@@ -6,6 +6,8 @@ NUM_ITERATIONS = 1
 VERBOSE = True
 FORCE_START_NODE = None
 
+SINGLE_CASE = None
+
 with open("output.out", "r") as f:
 	flines = f.read().split("\n")
 
@@ -103,6 +105,10 @@ def write_output(where_to_write):
 		for i in range(1, 601):
 			if not VERBOSE:
 				print(str(i))
+			if SINGLE_CASE:
+				if i != SINGLE_CASE:
+					f.write(prevbest[1])
+					continue
 			prevbest = score_from_file(i)
 			if prevbest[2] == 1:
 				if VERBOSE:
