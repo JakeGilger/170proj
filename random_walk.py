@@ -111,7 +111,7 @@ def write_output(where_to_write):
 			if new_best_tup[1] >= prevbest[0]:
 				if VERBOSE:
 					print(str(i) + ": found better solution: " + str(new_best_tup[1]) + " over: " + str(prevbest[0]) + ". Teams: " + str(new_best_tup[2]))
-				f.write(convert_to_out(newbest_tup[0]))
+				f.write(convert_to_out(new_best_tup[0]))
 			else:
 				if VERBOSE:
 					print(str(i) + ": no better found over: " + str(prevbest[0]))
