@@ -60,7 +60,7 @@ def convert_to_out(teams):
 	out = out[:len(out) - 2]
 	out += "\n"
 	return out
-
+#hello
 def score_from_file(line_number):
 	with open("output.out", "r") as f:
 		lines = f.read().split("\n")
