@@ -1,6 +1,6 @@
 from graphviz import Digraph
 
-for fname in ['262']:
+for fname in ['385']:
     with open('cs170_final_inputs/' + fname + '.in') as f:
         dot = Digraph()
         n = int(next(f))

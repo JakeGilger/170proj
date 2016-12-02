@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 100
+NUM_ITERATIONS = 1000
 VERBOSE = True
 FORCE_START_NODE = None
 
@@ -18,7 +18,9 @@ def load_obj(name):
 def random_walk(input_number):
 	adj = load_obj(str(input_number) + ".adj")
 	perf = load_obj(str(input_number) + ".perf")
+	# prev = load_obj(str(input_number) + ".prev")
 	size = len(adj)
+
 	unmarked = range(0, size)
 	start = random.choice(unmarked)
 	if FORCE_START_NODE and size > FORCE_START_NODE:
@@ -29,17 +31,28 @@ def random_walk(input_number):
 	allTeams = []
 	while not len(unmarked) == 0:
 		outgoing = adj[current]
-		toConsider = []
+		consider_outgoing = []
 		for vertex in outgoing:
 			if vertex in unmarked:
-				toConsider.append(vertex)
-		if len(toConsider) == 0:
+				consider_outgoing.append(vertex)
+		if len(consider_outgoing) == 0:
+
+
+			# incoming = prev[start]
+			# consider_incoming = []
+			# for vertex in incoming:
+			# 	if vertex in unmarked:
+			# 		consider_incoming.append(vertex)
+
+
+
 			allTeams.append(team)
 			current = random.choice(unmarked)
 			unmarked.remove(current)
 			team = [current]
+			start = current
 			continue
-		next = random.choice(toConsider)
+		next = random.choice(consider_outgoing)
 		unmarked.remove(next)
 		team.append(next)
 		current = next

@@ -7,21 +7,36 @@ def read_in_files():
 			dicts = compute_dict(f.read())
 			save_obj(dicts[0], str(i) + ".adj")
 			save_obj(dicts[1], str(i) + ".perf")
+			save_obj(dicts[2], str(i) + ".prev")
 
 def compute_dict(input_file):
 	lines = input_file.split("\n")
 	size = int(lines[0])
+	del lines[0]
+	sizerange = range(0, size)
 	adjacency = {}
 	performance = {}
-	for i in range(0, size):
-		line = lines[i + 1].split(" ")
+	prev = {}
+	for i in sizerange:
+		line = lines[i].split(" ")
 		performance[i] = int(line[i])
 		adjacents = []
-		for j in range(0, size):
+		for j in sizerange:
 			if line[j] == "1" and not j == i:
 				adjacents.append(j)
 		adjacency[i] = adjacents
-	return (adjacency, performance)
+
+	for i in sizerange:
+		lines[i] = lines[i].split(" ")
+	
+	for key in adjacency.keys():
+		for item in adjacency[key]:
+			if item in prev:
+				prev[item].append(key)
+			else:
+				prev[item] = [key]
+
+	return (adjacency, performance, prev)
 
 def save_obj(obj, name):
     with open('obj/'+ name, 'wb') as f:

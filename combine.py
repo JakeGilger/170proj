@@ -43,5 +43,5 @@ def load_obj(name):
 	with open('obj/' + name, 'rb') as f:
 		return cPickle.load(f)
 
-combine_outputs("derekoutput.out", "jakeoutput.out")
+combine_outputs("output.out", "jakeoutput.out")
 
