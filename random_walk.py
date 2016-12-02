@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 15
+NUM_ITERATIONS = 10
 VERBOSE = True
 FORCE_START_NODE = None
 
@@ -18,6 +18,7 @@ def load_obj(name):
 def random_walk(input_number):
 	adj = load_obj(str(input_number) + ".adj")
 	perf = load_obj(str(input_number) + ".perf")
+	prev = load_obj(str(input_number) + ".prev")
 	size = len(adj)
 	unmarked = range(0, size)
 	start = random.choice(unmarked)
@@ -34,6 +35,19 @@ def random_walk(input_number):
 			if vertex in unmarked:
 				toConsider.append(vertex)
 		if len(toConsider) == 0:
+			back = team[0]
+			backEdges = prev[back]
+			while len(backEdges) != 0:
+				backConsiders = []
+				for backVertex in backEdges:
+					if backVertex in unmarked:
+						toConsider.append(backVertex)
+				if len(backConsiders) == 0:
+					break
+				back = random.choice(backConsiders)
+				unmarked.remove(back)
+				team.insert(0, back)
+				backEdges = prev[back]
 			allTeams.append(team)
 			current = random.choice(unmarked)
 			unmarked.remove(current)
@@ -182,4 +196,4 @@ def write_output(where_to_write):
 				f.write(prevbest[1])
 	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
-write_output("testoutput.out")
+write_output("derekoutput2.out")
