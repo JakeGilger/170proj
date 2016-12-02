@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 100
+NUM_ITERATIONS = 15
 VERBOSE = True
 FORCE_START_NODE = None
 
@@ -69,7 +69,44 @@ def find_best(input_number):
 			bestTeams = teams
 		if len(bestTeams) == 1:
 			break
+	possibleBetter = find_better_path(input_number, bestTeams)
+	if possibleBetter:
+		print "found better path"
+		teamsPerf = []
+		for team in possibleBetter:
+			teamPerf = []
+			for i in team:
+				teamPerf.append(perf[i])
+			teamsPerf.append(teamPerf)
+		best = compute_score(teamsPerf)
+		bestTeams = possibleBetter
 	return (bestTeams, best, len(bestTeams))
+
+def find_better_path(input_number, teams):
+	adj = load_obj(str(input_number) + ".adj")
+	for i in range(len(teams)):
+		firstTeam = teams[i]
+		for j in range(i, len(teams)):
+			if i == j:
+				continue
+			secondTeam = teams[j]
+			for vertex in range(len(firstTeam) - 1):
+				firstStart = firstTeam[vertex]
+				firstEnd = firstTeam[vertex + 1]
+				secondStart = secondTeam[0]
+				secondEnd = secondTeam[-1]
+				if secondStart in adj[firstStart] and firstEnd in adj[secondEnd]:
+					joined_team = firstTeam[:vertex + 1] + secondTeam + firstTeam[vertex + 1:]
+					teams.pop(j)
+					teams.pop(i)
+					teams.append(joined_team)
+					recurse = find_better_path(input_number, teams)
+					if recurse:
+						return recurse
+					return teams
+	return False
+
+			
 
 def convert_to_out(teams):
 	out = ""
@@ -127,4 +164,4 @@ def write_output(where_to_write):
 				f.write(prevbest[1])
 	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
-write_output("jakeoutput.out")
+write_output("testoutput.out")
