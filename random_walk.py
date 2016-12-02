@@ -96,21 +96,26 @@ def score_from_file(line_number):
 def write_output(where_to_write):
 
 	with open(where_to_write, "w") as f:
+		multi_team_cases = 0
 		for i in range(1, 601):
+			if not VERBOSE:
+				print(str(i))
 			prevbest = score_from_file(i)
 			if prevbest[2] == 1:
 				if VERBOSE:
 					print(str(i) + " is solved with 1 team.")
 				f.write(prevbest[1])
 				continue
-			newbest_tup = find_best(i)
-			if newbest_tup[1] >= prevbest[0]:
+			multi_team_cases += 1
+			new_best_tup = find_best(i)
+			if new_best_tup[1] >= prevbest[0]:
 				if VERBOSE:
-					print(str(i) + ": found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest[0]) + ". Teams: " + str(newbest_tup[2]))
+					print(str(i) + ": found better solution: " + str(new_best_tup[1]) + " over: " + str(prevbest[0]) + ". Teams: " + str(new_best_tup[2]))
 				f.write(convert_to_out(newbest_tup[0]))
 			else:
 				if VERBOSE:
 					print(str(i) + ": no better found over: " + str(prevbest[0]))
 				f.write(prevbest[1])
+	print("There were " + multi_team_cases + " cases that were not previously solved with 1 team.")
 
 write_output("derekoutput.out")
