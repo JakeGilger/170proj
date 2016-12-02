@@ -5,14 +5,19 @@ def combine_outputs(output1, output2):
 		f1lines = f.readlines()
 	with open(output2, "r") as f:
 		f2lines = f.readlines()
+	score1sum = 0
+	score2sum = 0
 	with open("combined_output.out", "w") as f:
-		for i in range(len(f1lines)):
+		for i in range(1, len(f1lines) + 1):
 			score1 = score_from_file(i, f1lines)
 			score2 = score_from_file(i, f2lines)
 			if score1 > score2:
-				f.write(f1lines[i])
+				score1sum += 1
+				f.write(f1lines[i - 1])
 			else:
-				f.write(f2lines[i])
+				score2sum += 1
+				f.write(f2lines[i - 1])
+	print(str(score1sum) + ", " + str(score2sum))
 
 def score_from_file(line_number, file_lines):
 	perf = load_obj(str(line_number) + ".perf")
@@ -26,10 +31,13 @@ def score_from_file(line_number, file_lines):
 		team = team.split(" ")
 		teamSum = 0
 		for j in team:
-			teamSum += perf[j]
+			teamSum += perf[int(j)]
 		total += len(team) * teamSum
 	return (total, orig_line + "\n", num_teams)
 
 def load_obj(name):
 	with open('obj/' + name, 'rb') as f:
 		return cPickle.load(f)
+
+combine_outputs("jakeoutput.out", "derekoutput.out")
+
