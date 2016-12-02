@@ -50,6 +50,22 @@ def find_best(input_number):
 		if score > best:
 			best = score
 			bestTeams = teams
-	print (bestTeams, best)
+	return (bestTeams, best, len(bestTeams))
 
-find_best(310)
+def convert_to_out(teams):
+	out = ""
+	for i in teams:
+		for j in i:
+			out += str(j) + " "
+		out = out.rstrip()
+		out += "; "
+	out = out[:len(out) - 2]
+	out += "\n"
+	return out
+
+def write_output():
+	with open("output.out", "w") as f:
+		for i in range(1, 10):
+			f.write(convert_to_out(find_best(i)[0]))
+
+write_output()
