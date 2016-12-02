@@ -13,12 +13,12 @@ def compute_dict(input_file):
 	size = int(lines[0])
 	adjacency = {}
 	performance = {}
-	for i in range(1, size + 1):
-		line = lines[i].split(" ")
-		performance[i] = int(line[i - 1])
+	for i in range(0, size):
+		line = lines[i + 1].split(" ")
+		performance[i] = int(line[i])
 		adjacents = []
-		for j in range(1, size + 1):
-			if line[j - 1] == "1" and not j == i:
+		for j in range(0, size):
+			if line[j] == "1" and not j == i:
 				adjacents.append(j)
 		adjacency[i] = adjacents
 	return (adjacency, performance)
@@ -32,6 +32,3 @@ def load_obj(name):
         return cPickle.load(f)
 
 read_in_files()
-
-adj = load_obj("13.perf")
-print(adj)

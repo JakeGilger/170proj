@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 5
+NUM_ITERATIONS = 15
 
 with open("output.out", "r") as f:
 	flines = f.read().split("\n")
@@ -15,7 +15,7 @@ def random_walk(input_number):
 	adj = load_obj(str(input_number) + ".adj")
 	perf = load_obj(str(input_number) + ".perf")
 	size = len(adj)
-	unmarked = range(1, size + 1)
+	unmarked = range(0, size)
 	start = random.choice(unmarked)
 	current = start
 	unmarked.remove(current)
@@ -76,7 +76,6 @@ def convert_to_out(teams):
 
 def score_from_file(line_number):
 	perf = load_obj(str(line_number) + ".perf")
-	print(perf)
 	line = flines[line_number - 1]
 	orig_line = line
 	line = line.split(";")
@@ -87,18 +86,23 @@ def score_from_file(line_number):
 		team = team.split(" ")
 		teamSum = 0
 		for j in team:
-			teamSum += perf[j]
+			teamSum += perf[int(j)]
 		total += len(team) * teamSum
 	return (total, orig_line + "\n", num_teams)
 
 def write_output(where_to_write):
+
 	with open(where_to_write, "w") as f:
 		for i in range(1, 601):
 			prevbest = score_from_file(i)
+			if prevbest[2] == 1:
+				print(str(i) + " is solved with 1 team.")
+				f.write(prevbest[1])
+				continue
 			print(str(i) + " with best: " + str(prevbest[0]))
 			newbest_tup = find_best(i)
-			if newbest_tup[1] >= prevbest:
-				print("found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest))
+			if newbest_tup[1] >= prevbest[0]:
+				print("found better solution: " + str(newbest_tup) + " over: " + str(prevbest))
 				f.write(convert_to_out(newbest_tup[0]))
 			else:
 				print("no better")
