@@ -76,6 +76,7 @@ def convert_to_out(teams):
 
 def score_from_file(line_number):
 	perf = load_obj(str(line_number) + ".perf")
+	print(perf)
 	line = flines[line_number - 1]
 	orig_line = line
 	line = line.split(";")
@@ -93,15 +94,14 @@ def score_from_file(line_number):
 def write_output(where_to_write):
 	with open(where_to_write, "w") as f:
 		for i in range(1, 601):
-			# prevbest = score_from_file(i)
-			prevbest = 0
-			print(str(i) + " with best: " + str(prevbest))
+			prevbest = score_from_file(i)
+			print(str(i) + " with best: " + str(prevbest[0]))
 			newbest_tup = find_best(i)
-			if newbest_tup[1] > prevbest:
+			if newbest_tup[1] >= prevbest:
 				print("found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest))
 				f.write(convert_to_out(newbest_tup[0]))
 			else:
 				print("no better")
 				f.write(prevbest[1])
 
-write_output("output.out")
+write_output("jakeoutput.out")
