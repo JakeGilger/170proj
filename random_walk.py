@@ -1,8 +1,8 @@
 import cPickle
 import random
 
+NUM_ITERATIONS = 50
 
-NUM_ITERATIONS = 10
 VERBOSE = True
 FORCE_START_NODE = None
 
@@ -197,3 +197,4 @@ def write_output(where_to_write):
 	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
 write_output("derekoutput2.out")
+
