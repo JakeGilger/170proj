@@ -62,6 +62,8 @@ def find_best(input_number):
 		if score >= best:
 			best = score
 			bestTeams = teams
+		if len(bestTeams) == 1:
+			break
 	return (bestTeams, best, len(bestTeams))
 
 def convert_to_out(teams):
@@ -112,4 +114,4 @@ def write_output(where_to_write):
 					print(str(i) + ": no better found")
 				f.write(prevbest[1])
 
-write_output("jakeoutput.out")
+write_output("derekoutput.out")
