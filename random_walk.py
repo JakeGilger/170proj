@@ -42,9 +42,16 @@ def compute_score(teams):
 
 def find_best(input_number):
 	best = 0
+	perf = load_obj(str(input_number) + ".perf")
 	for i in range(1000):
 		teams = random_walk(input_number)
-		score = compute_score(teams)
+		teamsPerf = []
+		for team in teams:
+			teamPerf = []
+			for i in team:
+				teamPerf.append(perf[i])
+			teamsPerf.append(teamPerf)
+		score = compute_score(teamsPerf)
 		if score > best:
 			best = score
 			bestTeams = teams
@@ -78,7 +85,7 @@ def score_from_file(line_number):
 
 def write_output():
 	with open("output.out", "w") as f:
-		for i in range(1, 10):
+		for i in range(1, 601):
 			f.write(convert_to_out(find_best(i)[0]))
 
 print find_best(4)
