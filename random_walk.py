@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 1
+NUM_ITERATIONS = 100
 VERBOSE = True
 FORCE_START_NODE = None
 
@@ -105,11 +105,11 @@ def write_output(where_to_write):
 		for i in range(1, 601):
 			if not VERBOSE:
 				print(str(i))
+			prevbest = score_from_file(i)
 			if SINGLE_CASE:
 				if i != SINGLE_CASE:
 					f.write(prevbest[1])
 					continue
-			prevbest = score_from_file(i)
 			if prevbest[2] == 1:
 				if VERBOSE:
 					print(str(i) + " is solved with 1 team.")

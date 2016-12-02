@@ -11,7 +11,7 @@ def combine_outputs(output1, output2):
 		for i in range(1, len(f1lines) + 1):
 			score1 = score_from_file(i, f1lines)
 			score2 = score_from_file(i, f2lines)
-			if score1 > score2:
+			if score1[0] > score2[0]:
 				score1sum += 1
 				f.write(f1lines[i - 1])
 			else:
@@ -39,5 +39,5 @@ def load_obj(name):
 	with open('obj/' + name, 'rb') as f:
 		return cPickle.load(f)
 
-combine_outputs("jakeoutput.out", "derekoutput.out")
+combine_outputs("derekoutput.out", "jakeoutput.out")
 
