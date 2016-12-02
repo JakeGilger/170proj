@@ -1,6 +1,10 @@
 import cPickle
 import random
 
+
+NUM_ITERATIONS = 10
+
+
 def load_obj(name):
     with open('obj/' + name, 'rb') as f:
         return cPickle.load(f)
@@ -42,7 +46,7 @@ def compute_score(teams):
 
 def find_best(input_number):
 	best = 0
-	for i in range(1000):
+	for i in range(NUM_ITERATIONS):
 		teams = random_walk(input_number)
 		score = compute_score(teams)
 		if score > best:
@@ -64,7 +68,9 @@ def convert_to_out(teams):
 def score_from_file(line_number):
 	with open("output.out", "r") as f:
 		lines = f.read().split("\n")
+	perf = load_obj(str(line_number) + ".perf")
 	line = lines[line_number - 1]
+	orig_line = line
 	line = line.split(";")
 	total = 0
 	for i in line:
@@ -72,13 +78,22 @@ def score_from_file(line_number):
 		team = team.split(" ")
 		teamSum = 0
 		for j in team:
-			teamSum += int(j)
+			teamSum += perf[j]
 		total += len(team) * teamSum
-	return total
+	return (total, orig_line + "\n")
 
 def write_output():
-	with open("output.out", "w") as f:
-		for i in range(1, 10):
-			f.write(convert_to_out(find_best(i)[0]))
+	with open("newoutput.out", "w") as f:
+		for i in range(1, 601):
+			# prevbest = score_from_file(i)
+			prevbest = 0
+			print(str(i) + " with best: " + str(prevbest[0]))
+			newbest_tup = find_best(i)
+			if newbest_tup[1] > prevbest[0]:
+				print("found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest[0]))
+				f.write(convert_to_out(newbest_tup[0]))
+			else:
+				print("no better")
+				f.write(prevbest[1])
 
-print find_best(4)
+write_output()
