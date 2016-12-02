@@ -4,6 +4,7 @@ import random
 
 NUM_ITERATIONS = 100
 VERBOSE = True
+FORCE_START_NODE = None
 
 with open("output.out", "r") as f:
 	flines = f.read().split("\n")
@@ -18,6 +19,8 @@ def random_walk(input_number):
 	size = len(adj)
 	unmarked = range(0, size)
 	start = random.choice(unmarked)
+	if FORCE_START_NODE and size > FORCE_START_NODE:
+		start = FORCE_START_NODE
 	current = start
 	unmarked.remove(current)
 	team = [current]
