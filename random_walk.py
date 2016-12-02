@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 100
+NUM_ITERATIONS = 1
 VERBOSE = True
 FORCE_START_NODE = None
 
