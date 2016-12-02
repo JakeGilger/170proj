@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 15
+NUM_ITERATIONS = 100
 VERBOSE = True
 
 with open("output.out", "r") as f:
@@ -116,6 +116,6 @@ def write_output(where_to_write):
 				if VERBOSE:
 					print(str(i) + ": no better found over: " + str(prevbest[0]))
 				f.write(prevbest[1])
-	print("There were " + multi_team_cases + " cases that were not previously solved with 1 team.")
+	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
-write_output("derekoutput.out")
+write_output("jakeoutput.out")

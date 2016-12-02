@@ -1,6 +1,6 @@
 from graphviz import Digraph
 
-for fname in ['214']:
+for fname in ['25']:
     with open('cs170_final_inputs/' + fname + '.in') as f:
         dot = Digraph()
         n = int(next(f))
@@ -8,7 +8,7 @@ for fname in ['214']:
         for line in f:
             A.append(list(map(int, line.rstrip().split(' '))))
         for i in range(n):
-            dot.node(str(i), str(A[i][i]))
+            dot.node(str(i), str(A[i][i]) + ", (" + str(i) + ")")
 
         for i in range(n):
             for j in range(n):
