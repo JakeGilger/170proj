@@ -90,7 +90,6 @@ def score_from_file(line_number):
 	return (total, orig_line + "\n")
 
 def write_output():
-<<<<<<< HEAD
 	with open("newoutput.out", "w") as f:
 		for i in range(1, 601):
 			# prevbest = score_from_file(i)
@@ -103,10 +102,5 @@ def write_output():
 			else:
 				print("no better")
 				f.write(prevbest[1])
-=======
-	with open("output.out", "w") as f:
-		for i in range(1, 601):
-			f.write(convert_to_out(find_best(i)[0]))
->>>>>>> 9a041422222d84c087e648997592c4366a7718b9
 
 write_output()
