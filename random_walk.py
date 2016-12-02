@@ -1,7 +1,8 @@
 import cPickle
 import random
 
-NUM_ITERATIONS = 1000
+
+NUM_ITERATIONS = 15
 VERBOSE = True
 FORCE_START_NODE = None
 
@@ -17,9 +18,7 @@ def load_obj(name):
 def random_walk(input_number):
 	adj = load_obj(str(input_number) + ".adj")
 	perf = load_obj(str(input_number) + ".perf")
-	# prev = load_obj(str(input_number) + ".prev")
 	size = len(adj)
-
 	unmarked = range(0, size)
 	start = random.choice(unmarked)
 	if FORCE_START_NODE and size > FORCE_START_NODE:
@@ -30,28 +29,17 @@ def random_walk(input_number):
 	allTeams = []
 	while not len(unmarked) == 0:
 		outgoing = adj[current]
-		consider_outgoing = []
+		toConsider = []
 		for vertex in outgoing:
 			if vertex in unmarked:
-				consider_outgoing.append(vertex)
-		if len(consider_outgoing) == 0:
-
-
-			# incoming = prev[start]
-			# consider_incoming = []
-			# for vertex in incoming:
-			# 	if vertex in unmarked:
-			# 		consider_incoming.append(vertex)
-
-
-
+				toConsider.append(vertex)
+		if len(toConsider) == 0:
 			allTeams.append(team)
 			current = random.choice(unmarked)
 			unmarked.remove(current)
 			team = [current]
-			start = current
 			continue
-		next = random.choice(consider_outgoing)
+		next = random.choice(toConsider)
 		unmarked.remove(next)
 		team.append(next)
 		current = next
@@ -102,6 +90,24 @@ def find_better_path(input_number, teams):
 			if i == j:
 				continue
 			secondTeam = teams[j]
+			if secondTeam[0] in adj[firstTeam[len(firstTeam) - 1]]:
+				joined_team = firstTeam + secondTeam
+				teams.pop(j)
+				teams.pop(i)
+				teams.append(joined_team)
+				recurse = find_better_path(input_number, teams)
+				if recurse:
+					return recurse
+				return teams
+			if firstTeam[0] in adj[secondTeam[len(secondTeam) - 1]]:
+				joined_team = secondTeam + firstTeam
+				teams.pop(j)
+				teams.pop(i)
+				teams.append(joined_team)
+				recurse = find_better_path(input_number, teams)
+				if recurse:
+					return recurse
+				return teams
 			for vertex in range(len(firstTeam) - 1):
 				firstStart = firstTeam[vertex]
 				firstEnd = firstTeam[vertex + 1]
