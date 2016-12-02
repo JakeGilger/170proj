@@ -28,6 +28,7 @@ def compute_dict(input_file):
 
 	for i in sizerange:
 		lines[i] = lines[i].split(" ")
+		prev[i] = []
 	
 	for key in adjacency.keys():
 		for item in adjacency[key]:
