@@ -34,8 +34,6 @@ def random_walk(input_number):
 	allTeams.append(team)
 	return allTeams
 
-random_walk(310)
-
 def compute_score(teams):
 	total = 0
 	for i in teams:
@@ -44,7 +42,7 @@ def compute_score(teams):
 
 def find_best(input_number):
 	best = 0
-	for i in range(10):
+	for i in range(1000):
 		teams = random_walk(input_number)
 		score = compute_score(teams)
 		if score > best:
@@ -63,9 +61,24 @@ def convert_to_out(teams):
 	out += "\n"
 	return out
 
+def score_from_file(line_number):
+	with open("output.out", "r") as f:
+		lines = f.read().split("\n")
+	line = lines[line_number - 1]
+	line = line.split(";")
+	total = 0
+	for i in line:
+		team = i.strip()
+		team = team.split(" ")
+		teamSum = 0
+		for j in team:
+			teamSum += int(j)
+		total += len(team) * teamSum
+	return total
+
 def write_output():
 	with open("output.out", "w") as f:
 		for i in range(1, 10):
 			f.write(convert_to_out(find_best(i)[0]))
 
-write_output()
+print find_best(4)
