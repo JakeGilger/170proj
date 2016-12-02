@@ -2,7 +2,8 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 15
+NUM_ITERATIONS = 5
+VERBOSE = True
 
 with open("output.out", "r") as f:
 	flines = f.read().split("\n")
@@ -96,16 +97,19 @@ def write_output(where_to_write):
 		for i in range(1, 601):
 			prevbest = score_from_file(i)
 			if prevbest[2] == 1:
-				print(str(i) + " is solved with 1 team.")
+				if VERBOSE:
+					print(str(i) + " is solved with 1 team.")
 				f.write(prevbest[1])
 				continue
 			print(str(i) + " with best: " + str(prevbest[0]))
 			newbest_tup = find_best(i)
 			if newbest_tup[1] >= prevbest[0]:
-				print("found better solution: " + str(newbest_tup) + " over: " + str(prevbest))
+				if VERBOSE:
+					print(str(i) + ": found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest[0]))
 				f.write(convert_to_out(newbest_tup[0]))
 			else:
-				print("no better")
+				if VERBOSE:
+					print(str(i) + ": no better found")
 				f.write(prevbest[1])
 
 write_output("jakeoutput.out")
