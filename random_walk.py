@@ -2,8 +2,9 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 100
+NUM_ITERATIONS = 1
 VERBOSE = True
+FORCE_START_NODE = 257
 
 with open("output.out", "r") as f:
 	flines = f.read().split("\n")
@@ -18,6 +19,8 @@ def random_walk(input_number):
 	size = len(adj)
 	unmarked = range(0, size)
 	start = random.choice(unmarked)
+	if FORCE_START_NODE and size > FORCE_START_NODE:
+		start = FORCE_START_NODE 
 	current = start
 	unmarked.remove(current)
 	team = [current]
@@ -118,4 +121,4 @@ def write_output(where_to_write):
 				f.write(prevbest[1])
 	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
-write_output("jakeoutput.out")
+write_output("derekoutput.out")
