@@ -2,7 +2,7 @@ import cPickle
 import random
 
 
-NUM_ITERATIONS = 5
+NUM_ITERATIONS = 15
 VERBOSE = True
 
 with open("output.out", "r") as f:
@@ -101,15 +101,14 @@ def write_output(where_to_write):
 					print(str(i) + " is solved with 1 team.")
 				f.write(prevbest[1])
 				continue
-			print(str(i) + " with best: " + str(prevbest[0]))
 			newbest_tup = find_best(i)
 			if newbest_tup[1] >= prevbest[0]:
 				if VERBOSE:
-					print(str(i) + ": found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest[0]))
+					print(str(i) + ": found better solution: " + str(newbest_tup[1]) + " over: " + str(prevbest[0]) + ". Teams: " + str(newbest_tup[2]))
 				f.write(convert_to_out(newbest_tup[0]))
 			else:
 				if VERBOSE:
-					print(str(i) + ": no better found")
+					print(str(i) + ": no better found over: " + str(prevbest[0]))
 				f.write(prevbest[1])
 
 write_output("jakeoutput.out")

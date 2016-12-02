@@ -1,7 +1,7 @@
 from graphviz import Digraph
 
-for fname in ['1', '2', '3']:
-    with open(fname + '.in') as f:
+for fname in ['214']:
+    with open('cs170_final_inputs/' + fname + '.in') as f:
         dot = Digraph()
         n = int(next(f))
         A = []
@@ -15,4 +15,4 @@ for fname in ['1', '2', '3']:
                 if A[i][j] and i != j:
                     dot.edge(str(i), str(j))
 
-        dot.render(fname + '.gv', view=True)
+        dot.render("graphpdf/" + fname, view=True)
