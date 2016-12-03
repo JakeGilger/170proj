@@ -1,7 +1,13 @@
 import cPickle
 import random
+import sys
 
-NUM_ITERATIONS = 50
+if len(sys.argv) != 3:
+	print "Usage Example: python random_walk.py 50 exampoutput.out"
+	exit()
+
+NUM_ITERATIONS = int(sys.argv[1])
+OUTPUT_FILENAME = sys.argv[2]
 
 VERBOSE = True
 FORCE_START_NODE = None
@@ -196,5 +202,5 @@ def write_output(where_to_write):
 				f.write(prevbest[1])
 	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
-write_output("derekoutput2.out")
+write_output(OUTPUT_FILENAME)
 
