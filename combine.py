@@ -2,7 +2,7 @@ import cPickle
 import sys
 
 if len(sys.argv) != 3:
-	print "Usage Example: python random_walk.py output1.out output2.out"
+	print "Usage Example: python combine.py output1.out output2.out"
 	exit()
 
 OUTPUT1 = sys.argv[1]
