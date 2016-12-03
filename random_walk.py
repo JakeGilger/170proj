@@ -77,7 +77,10 @@ def find_best(input_number):
 	perf = load_obj(str(input_number) + ".perf")
 	for i in range(NUM_ITERATIONS):
 		teams = random_walk(input_number)
-		teamsPerf = []
+		possibleBetter = find_better_path(input_number, teams)
+		if possibleBetter:
+			print "found better path"
+			teams = possibleBetter
 		for team in teams:
 			teamPerf = []
 			for i in team:
@@ -89,17 +92,6 @@ def find_best(input_number):
 			bestTeams = teams
 		if len(bestTeams) == 1:
 			break
-	possibleBetter = find_better_path(input_number, bestTeams)
-	if possibleBetter:
-		print "found better path"
-		teamsPerf = []
-		for team in possibleBetter:
-			teamPerf = []
-			for i in team:
-				teamPerf.append(perf[i])
-			teamsPerf.append(teamPerf)
-		best = compute_score(teamsPerf)
-		bestTeams = possibleBetter
 	return (bestTeams, best, len(bestTeams))
 
 def find_better_path(input_number, teams):
