@@ -1,4 +1,12 @@
 import cPickle
+import sys
+
+if len(sys.argv) != 3:
+	print "Usage Example: python random_walk.py output1.out output2.out"
+	exit()
+
+OUTPUT1 = sys.argv[1]
+OUTPUT2 = sys.argv[2]
 
 def combine_outputs(output1, output2):
 	with open(output1, "r") as f:
@@ -43,5 +51,5 @@ def load_obj(name):
 	with open('obj/' + name, 'rb') as f:
 		return cPickle.load(f)
 
-combine_outputs("output.out", "jakeoutput.out")
+combine_outputs(OUTPUT1, OUTPUT2)
 
