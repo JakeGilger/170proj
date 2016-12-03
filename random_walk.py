@@ -79,8 +79,8 @@ def find_best(input_number):
 		teams = random_walk(input_number)
 		possibleBetter = find_better_path(input_number, teams)
 		if possibleBetter:
-			print "found better path"
 			teams = possibleBetter
+		teamsPerf = []
 		for team in teams:
 			teamPerf = []
 			for i in team:
