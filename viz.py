@@ -1,6 +1,12 @@
 from graphviz import Digraph
+import sys
 
-for fname in ['385']:
+if len(sys.argv) != 2:
+    print("usage: python viz.py FILENUM")
+
+FILE_NUMBER = [sys.argv[1]]
+
+for fname in []:
     with open('cs170_final_inputs/' + fname + '.in') as f:
         dot = Digraph()
         n = int(next(f))
