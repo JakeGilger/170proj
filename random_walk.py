@@ -192,13 +192,13 @@ def write_output(where_to_write):
 				continue
 			multi_team_cases += 1
 			new_best_tup = find_best(i)
-			if new_best_tup[1] >= prevbest[0]:
+			if new_best_tup[1] > prevbest[0]:
 				if VERBOSE:
-					print(str(i) + ": found better solution: " + str(new_best_tup[1]) + " over: " + str(prevbest[0]) + ". Teams: " + str(new_best_tup[2]))
+					print(str(i) + ": Found a better solution: " + str(new_best_tup[1]) + " over: " + str(prevbest[0]) + ". Teams: " + str(new_best_tup[2]))
 				f.write(convert_to_out(new_best_tup[0]))
 			else:
 				if VERBOSE:
-					print(str(i) + ": no better found over: " + str(prevbest[0]))
+					print(str(i) + ": Nothing better: " + str(prevbest[0])+ ". Teams: " + str(prevbest[2]))
 				f.write(prevbest[1])
 	print("There were " + str(multi_team_cases) + " cases that were not previously solved with 1 team.")
 
